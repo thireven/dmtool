@@ -4,7 +4,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('config');
-const reload = require('reload');
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
 
 const routes = config.get('routes');
 const navigation = config.get('navigation');
@@ -36,7 +39,10 @@ routes.forEach((route) => {
   app.use(route.uri, require(`./routes/${route.file}`));
 });
 
-reload(app);
+if(process.env.NODE_ENV === 'development') {
+  const reload = require('reload');
+  reload(app);
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
