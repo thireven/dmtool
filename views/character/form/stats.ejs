@@ -1,0 +1,17 @@
+<div class="char-stat-fields">
+    <% data.values.forEach((statData) => {
+      const field = statData.name;
+      const fieldName = `stats[${statData.name}]`;
+      let defaultValue = statData.default;
+      if (typeof character !== 'undefined' && character !== null) defaultValue = character['stats'][field];
+
+      switch(statData.type) {
+        case 'string': %>
+          <%- include('string', { field, fieldName, data: statData, defaultValue }); %>
+          <% break;
+        case 'number': %>
+        <%- include('number', { field, fieldName, data: statData, defaultValue }); %>
+          <% break;
+    }
+   }); %>
+</div>

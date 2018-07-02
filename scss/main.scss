@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Metamorphous');
+@import "../node_modules/rpg-awesome/scss/rpg-awesome";
+
+$background-color: #cbcbcb;
+$text-color: #e8e8e8;
+
+body {
+  font: 14px 'Metamorphous', cursive;
+  background: $background-color;
+  color: $text-color;
+}
+
+a {
+  color: #00B7FF;
+}
+
+main {
+  margin-top: 80px;
+}
+
+#dashboard-navbar {
+  .nav-link {
+    font-size: 18px;
+  }
+}
+
+#new-room-form {
+  width: 50%;
+  text-align: center;
+  margin: 0 auto;
+
+}
+
+@import "./characterTemplates";
+@import "./characters";

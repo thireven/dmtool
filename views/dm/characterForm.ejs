@@ -1,0 +1,44 @@
+<form id="characterForm">
+  <% if (typeof character !== 'undefined' && character !== null) { %>
+    <input type="hidden" id="character-id-field" name="characterId" value="<%= character.id %>" />
+  <% } %>
+
+  <% template.forEach((data) => {
+    const field = data.name;
+    let defaultValue = data.default ? data.default : '';
+    if (typeof character !== 'undefined' && character !== null) {
+      defaultValue = character[field];
+    }
+    %>
+    <div class="form-row">
+      <% switch(data.type) {
+          case 'string': %>
+            <%- include('../character/form/string', { field, data, defaultValue }); %>
+            <% break;
+          case 'number':%>
+          <%- include('../character/form/number', { field, data, defaultValue }); %>
+            <% break;
+          case 'options': %>
+            <%- include('../character/form/options', { field, data, defaultValue }); %>
+            <% break;
+          case 'stats': %>
+            <%- include('../character/form/stats', { field, data, character }); %>
+            <% break;
+      } %>
+    </div>
+  <% }); %>
+</form>
+<script>
+  $(function(){
+    $('#characterForm')
+    .on('click', '.btn-subtract', (e) => {
+      const input = $(e.currentTarget).parent().find('input')[0];
+      input.value = parseInt(input.value) - 1;
+    })
+    .on('click', '.btn-add', (e) => {
+      const input = $(e.currentTarget).parent().find('input')[0];
+      input.value = parseInt(input.value) + 1;
+    })
+  });
+
+</script>

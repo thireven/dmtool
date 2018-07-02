@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= typeof title !== 'undefined' ? title : 'DM Tool' %></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/main.css' />
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/reload/reload.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script>
+      const roomKey = '<%= typeof roomKey !== "undefined" ? roomKey : "" %>';
+      const baseLinkUrl = '<%= baseLinkUrl %>';
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyA5lIYCq9vTa0U05cPzfViK0NNiFLHh3Rs",
+        authDomain: "dm-tool-76ae3.firebaseapp.com",
+        projectId: "dm-tool-76ae3"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const firestore = firebase.firestore();
+      firestore.settings({
+        timestampsInSnapshots: true
+      });
+    </script>
+  </head>
+  <body>
+      <% if(typeof showNav === 'undefined' || showNav) { %>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">DM Tool</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboard-navbar" aria-controls="dashboard-navbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="dashboard-navbar">
+              <ul class="navbar-nav">
+                <% navigation.dashboard.forEach((nav) => { %>
+                  <li class="nav-item <%= baseLinkUrl.concat(nav.uri) === originalUrl ? 'active' : '' %>">
+                      <a class="nav-link" href="<%= baseLinkUrl %><%= nav.uri %>"><i class="ra <%= nav.icon %>"></i> <%= nav.name %></a>
+                    </li>
+                <% })%>
+              </ul>
+            </div>
+          </nav>
+      <% } %>
+
+      <main class="container">

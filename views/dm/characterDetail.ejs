@@ -1,0 +1,20 @@
+<%- include('../header', { showNav: false }) %>
+    <section id="character-detail-container">
+
+    </section>
+
+    <script src="/javascripts/CharacterHelper.js"></script>
+    <script>
+      const characterId = '<%= characterId %>';
+      let container;
+        $(() => {
+          container = $('#character-detail-container');
+          firestore.collection('rooms').doc(roomKey).collection('characters').doc(characterId)
+              .onSnapshot(function(doc) {
+                const character = doc.data();
+                container.html(CharacterHelper.generateCharacterHTML(character));
+              });
+        })
+
+    </script>
+    <% include ../footer %>

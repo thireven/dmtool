@@ -1,0 +1,41 @@
+{
+  "name": "rpg",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node --inspect ./bin/www",
+    "nodemon": "nodemon --inspect ./bin/www",
+    "pretest": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all",
+    "test": "NODE_ENV=test mocha testback --exit",
+    "reset": "NODE_ENV=development sequelize db:seed:undo:all && NODE_ENV=development sequelize db:migrate:undo:all && NODE_ENV=development sequelize db:migrate && NODE_ENV=development sequelize db:seed:all",
+    "e2e": "NODE_ENV=test sequelize db:seed:undo:all && NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:all && NODE_ENV=test testcafe chrome,safari,firefox testfront",
+    "grunt": "grunt"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "ext": "js,json,css,ejs",
+    "ignore": [
+      "e2e/*",
+      "public/javascripts/libs/*",
+      "node_modules/*"
+    ]
+  },
+  "dependencies": {
+    "config": "^1.30.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "firebase-admin": "^5.12.1",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "rpg-awesome": "^0.2.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-sass": "^2.1.0",
+    "load-grunt-tasks": "^4.0.0",
+    "reload": "^2.3.0"
+  }
+}

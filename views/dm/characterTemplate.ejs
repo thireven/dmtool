@@ -1,0 +1,50 @@
+<% include ../header %>
+  <script src="/javascripts/libs/ace/ace.js"></script>
+  <script src="/javascripts/libs/ace/mode-json.js"></script>
+  <script src="/javascripts/libs/ace/theme-monokai.js"></script>
+
+  <div id="editor-controls-container">
+      <button id="save-template-btn" class="btn btn-success">Save</button><br/>
+      <button id="reset-template-btn" class="btn">Reset</button>
+  </div>
+
+  <div id="character-template-editor"></div>
+
+  <script>
+    function objectToJSON(object) {
+      return JSON.stringify(object, null, 2);
+    }
+
+    function jsonToObject(json) {
+      return JSON.parse(json);
+    }
+
+    let template = <%- template %>;
+    const editor = ace.edit('character-template-editor', {
+      mode: 'ace/mode/json',
+      theme: 'ace/theme/monokai'
+    });
+
+    editor.setValue(objectToJSON(template));
+
+    $(() => {
+      $('#reset-template-btn').click(() => {
+        editor.setValue(objectToJSON(template));
+      });
+
+      $('#save-template-btn').click(() => {
+        const json = editor.getValue();
+        firestore.collection('rooms').doc(roomKey)
+          .update({
+            characterTemplate: jsonToObject(json)
+          })
+          .then(() => {
+            console.log('Saved');
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      });
+    })
+  </script>
+<% include ../footer %>

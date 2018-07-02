@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "characterTemplates.css",
+	"sources": [
+		"../../scss/characterTemplates.scss"
+	],
+	"sourcesContent": [
+		"#character-template-editor {\n  position: absolute;\n  top: 50px;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n#editor-controls-container {\n  position: absolute;\n  z-index: 1000;\n  right: 20px;\n  top: 70px;\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,0BAA0B,CAAC;EACzB,QAAQ,EAAE,QAAQ;EAClB,GAAG,EAAE,IAAI;EACT,KAAK,EAAE,CAAC;EACR,MAAM,EAAE,CAAC;EACT,IAAI,EAAE,CAAC,GACR;;AAED,AAAA,0BAA0B,CAAC;EACzB,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;EACX,GAAG,EAAE,IAAI,GACV"
+}

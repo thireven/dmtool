@@ -1,0 +1,115 @@
+<% include ../header %>
+    <section id="characters-container">
+
+    </section>
+
+    <button id="add-character-btn" class="btn btn-success" title="Add Character">
+        +<i class="ra ra-muscle-up"></i>
+    </button>
+    <div class="modal fade" tabindex="-1" role="dialog" id="characterFormModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-container"><i class="ra ra-hourglass" id="form-loading-icon"></i></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" form="characterForm" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascripts/CharacterHelper.js"></script>
+    <script>
+        function addCharacter(character) {
+            characters.push(character);
+            firestore
+                .collection('rooms')
+                .doc(roomKey)
+                .collection('characters')
+                .add(character)
+            renderCharacters();
+        }
+
+        function renderCharacters() {
+            container.text('');
+            characters.forEach((character) => {
+                container.append(CharacterHelper.generateCharacterHTML(character));
+            });
+        }
+
+        function getCharacterFormUrl(roomKey, characterId) {
+            if (characterId) return `/room/${roomKey}/character/${characterId}/form`;
+
+            return `/room/${roomKey}/characters/template/form`;
+        }
+
+        // Jquery init
+        let container;
+        let characters = [];
+        let modal;
+        let currentCharacterFormUrl = getCharacterFormUrl(roomKey);
+        const hourglassIcon = `<i class="ra ra-hourglass" id="form-loading-icon"></i>`;
+        $(() => {
+            modal = $('#characterFormModal')
+            container = $('#characters-container');
+
+            container.on('click', '.edit-btn', (e) => {
+                const characterId = $(e.currentTarget).attr('data-fs-id');
+                currentCharacterFormUrl = getCharacterFormUrl(roomKey, characterId);
+                modal.modal('show');
+            })
+
+            $('#add-character-btn').on('click', () => {
+                currentCharacterFormUrl = getCharacterFormUrl(roomKey);
+                modal.modal('show');
+            })
+
+            $('#characterFormModal').on('submit', '#characterForm', (e) => {
+                e.preventDefault();
+                const currentTarget = $(e.currentTarget);
+                const data = currentTarget.serialize();
+                const characterId = currentTarget.find('#character-id-field').val();
+
+                const ajaxCall = () => {
+                    return (characterId) ? axios.patch(`/room/${roomKey}/character/${characterId}`, data)
+                            : axios.post(`/room/${roomKey}/character`, data);
+                }
+
+                ajaxCall()
+                    .then(() => {
+                        modal.modal('hide');
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+
+            });
+
+            firestore.collection('rooms').doc(roomKey).collection('characters')
+                .onSnapshot(function(doc) {
+                    characters = doc.docs.map(character => {
+                        const id = character.id;
+                        return Object.assign({}, character.data(), { id });
+                    });
+                    renderCharacters();
+                });
+
+            modal
+                .on('show.bs.modal', (e) => {
+                    axios.get(currentCharacterFormUrl)
+                        .then((res) => {
+                            $(e.currentTarget).find('.form-container').html(res.data);
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                })
+                .on('hidden.bs.modal', (e) => {
+                    $(e.currentTarget).find('.form-container').html(hourglassIcon);
+                })
+        })
+
+    </script>
+    <% include ../footer %>

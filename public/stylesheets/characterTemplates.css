@@ -1,0 +1,14 @@
+#character-template-editor {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+#editor-controls-container {
+  position: absolute;
+  z-index: 1000;
+  right: 20px;
+  top: 70px; }
+
+/*# sourceMappingURL=characterTemplates.css.map */

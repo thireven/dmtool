@@ -1,0 +1,10 @@
+<div class="col-auto">
+    <label for="new-<%= field %>">
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><%- field %></div>
+            </div>
+            <input name="<%= (typeof fieldName !== 'undefined') ? fieldName : field %>" type="text" class="form-control char-input" id="new-<%= field %>" value="<%= defaultValue %>" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+        </div>
+    </label>
+</div>

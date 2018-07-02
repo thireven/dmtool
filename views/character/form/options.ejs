@@ -1,0 +1,15 @@
+<div class="col-auto">
+    <label for="new-<%= field %>">
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+              <div class="input-group-text"><%- field %></div>
+          </div>
+          <select class="custom-select char-input" name="<%= field %>" id="new-<%=field %>" required>
+            <% data.values.forEach((value) => {
+                const selected = (defaultValue == value) ? 'selected' : '';
+                %><option value="<%= value %>" <%= selected %>><%= value %></option>
+            <% }); %>
+          </select>
+      </div>
+    </label>
+</div>

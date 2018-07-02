@@ -1,0 +1,270 @@
+$character-width: 250px;
+$char-row-height: 30px;
+$avatar-size: 90px;
+$character-bg: #D6D6D6;
+$character-border-color: #941751;
+$shadow: 10px 10px 24px -9px rgba(0,0,0,0.43);
+$stat-padding: 6px 8px;
+
+/// Stroke font-character
+/// @param  {Integer} $stroke - Stroke width
+/// @param  {Color}   $color  - Stroke color
+/// @return {List}            - text-shadow list
+@function stroke($stroke, $color) {
+  $shadow: ();
+  $from: $stroke*-1;
+  @for $i from $from through $stroke {
+   @for $j from $from through $stroke {
+      $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
+    }
+  }
+  @return $shadow;
+}
+
+#add-character-btn {
+  border-radius: 100%;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  height: 70px;
+  width: 70px;
+  vertical-align: middle;
+  font-size: 25px;
+  z-index: 1000;
+}
+
+.character {
+  display: inline-block;
+  margin: 30px 30px;
+  position: relative;
+  width: $character-width;
+  background: $character-border-color;
+  min-height: 150px;
+  border-radius: 10px;
+  border: 6px solid $character-border-color;
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+
+  .edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .avatar {
+    position: absolute;
+    top: -48px;
+    left: -40px;
+    width: $avatar-size;
+    height: $avatar-size;
+    border-radius: 100%;
+    border: 5px solid $character-border-color;
+    background: $character-border-color;
+  }
+
+  .char-row {
+    font-size: 18px;
+    width: 100%;
+    vertical-align: middle;
+    line-height: $char-row-height;
+    height: $char-row-height;
+    border-bottom: 2px solid $character-border-color;
+  }
+
+  .char-name {
+    background: $character-border-color;
+    color: #fff;
+    height: auto;
+    padding-left: 60px;
+    line-height: 20px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .char-race {
+    background: #f4e7ff;
+    text-align: center;
+    color: black;
+  }
+
+  .char-name-second {
+    display: block;
+    padding-left: 10px;
+  }
+
+  .char-dynamic-bar {
+    text-align: center;
+    text-shadow: stroke(2, black);
+    text-transform: uppercase;
+    border: 0;
+    position: relative;
+
+    .char-bar-stat {
+      position: relative;
+      z-index: 10;
+    }
+
+    .char-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 9;
+    }
+  }
+
+  .char-hp {
+    background: rgb(255, 226, 226);
+
+    .char-bar {
+      background: #f6290c;
+    }
+  }
+
+  .char-mana {
+    background: #e0efff;
+
+    .char-bar {
+      background: #3293f8;
+    }
+  }
+
+  .char-stats {
+    background: #ebcf98;
+    color: #000000;
+    font-weight: bold;
+    margin: 0;
+
+    .char-stat {
+      display: flex;
+      flex-direction: row;
+      border-top: 2px solid $character-border-color;
+
+      dt {
+        flex: 1 auto;
+        border-right: 2px solid $character-border-color;
+        padding: $stat-padding;
+        font-weight: bold;
+      }
+
+      dd {
+        margin: 0;
+        width: 40px;
+        padding: $stat-padding;
+      }
+    }
+  }
+}
+
+#characterForm {
+  input[type=number] {
+    width: 80px;
+  }
+
+  .col-auto {
+    margin-top: -1px;
+    padding: 0 5px;
+  }
+
+  .form-control, .input-group-text {
+    border-radius: 0;
+  }
+
+  .input-group-text {
+    width: 160px;
+  }
+
+  .input-group {
+    margin: 0 !important;
+  }
+
+  label {
+    margin: 0;
+    display: block;
+  }
+}
+
+.char-stat-fields {
+  input.form-control {
+    flex: 0;
+  }
+
+  .input-group-prepend {
+    flex: 1;
+
+    .input-group-text {
+      flex: 1;
+    }
+  }
+}
+
+#character-detail-container {
+  .character {
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    .char-name {
+      text-align: center;
+      padding: 15px;
+      line-height: normal;
+      font-size: 30px;
+    }
+
+    .char-name-second {
+      display: inline;
+      padding: 0;
+    }
+
+    .char-row, .char-stat {
+      font-size: 20px;
+      line-height: normal;
+
+      height: auto;
+    }
+
+    .char-race, .char-bar-stat {
+      padding: 15px 0;
+    }
+
+    dd {
+      width: 80px;
+      text-align: left;
+      padding-left: 20px;
+    }
+  }
+
+  .edit-btn {
+    display: none;
+  }
+}
+
+.form-container {
+  text-align: center;
+}
+
+#form-loading-icon {
+  animation: spin 1s infinite;
+  color: black;
+  font-size: 50px;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
