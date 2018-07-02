@@ -16,6 +16,14 @@
       "node_modules/*"
     ]
   },
+  "engines": {
+    "name": "thi-dm-tool",
+    "description": "Dm Tool",
+    "version": "0.0.1",
+    "engines": {
+      "node": "9.2.0"
+    }
+  },
   "dependencies": {
     "config": "^1.30.0",
     "cookie-parser": "~1.4.3",
