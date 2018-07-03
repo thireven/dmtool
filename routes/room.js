@@ -14,13 +14,19 @@ router.use('/:roomKey', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const roomName = req.body.roomName.trim();
   const roomKey = roomName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+
   const newRoom = {
     name: roomName,
     characterTemplate: characterConfig.template,
     password: null,
   }
 
-  firestore.collection('rooms').doc(roomKey).set(newRoom)
+  firestore.collection('rooms').doc(roomKey).get()
+    .then((roomRef) => {
+      if (!roomRef.exists) return firestore.collection('rooms').doc(roomKey).set(newRoom);
+
+      return Promise.resolve();
+    })
     .then(() => {
       res.redirect(`/room/${roomKey}/characters`);
     })
