@@ -3,12 +3,42 @@
   top: 50px;
   right: 0;
   bottom: 0;
-  left: 0; }
+  left: 0;
+  font-size: 20px; }
 
 #editor-controls-container {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
-  right: 20px;
-  top: 70px; }
+  right: 100px;
+  bottom: 100px; }
+  #editor-controls-container .btn-trigger {
+    position: relative;
+    z-index: 10;
+    font-size: 30px;
+    border-radius: 100%;
+    padding: 12px;
+    line-height: 25px; }
+  #editor-controls-container .float-btn-group .btn-list {
+    z-index: 9;
+    left: 0;
+    overflow: hidden;
+    opacity: 0; }
+    #editor-controls-container .float-btn-group .btn-list .btn-float {
+      transition: all .3s;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(0); }
+  #editor-controls-container .float-btn-group.open .btn-list {
+    opacity: 1; }
+    #editor-controls-container .float-btn-group.open .btn-list .btn-float {
+      transform: scale(1); }
+    #editor-controls-container .float-btn-group.open .btn-list #reset-template-btn {
+      top: -50px;
+      left: -9px; }
+    #editor-controls-container .float-btn-group.open .btn-list #save-template-btn {
+      top: 70px;
+      left: -22px;
+      font-size: 30px; }
 
 /*# sourceMappingURL=characterTemplates.css.map */

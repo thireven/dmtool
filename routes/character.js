@@ -75,6 +75,17 @@ router.get('/characters/template/form', (req, res, next) => {
     });
 });
 
+router.patch('/characters/template', (req, res, next) => {
+  const roomKey = req.roomKey;
+  firestore.collection('rooms').doc(roomKey).update({ characterTemplate: JSON.parse(req.body.template) })
+    .then((doc) => {
+      res.status(200).end();
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get('/characters/template', (req, res, next) => {
   const roomKey = req.roomKey;
   firestore.collection('rooms').doc(roomKey).get()

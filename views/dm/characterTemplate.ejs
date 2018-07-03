@@ -4,8 +4,13 @@
   <script src="/javascripts/libs/ace/theme-monokai.js"></script>
 
   <div id="editor-controls-container">
-      <button id="save-template-btn" class="btn btn-success">Save</button><br/>
-      <button id="reset-template-btn" class="btn">Reset</button>
+      <div class="float-btn-group">
+        <button class="btn btn-warning btn-float btn-trigger pink"><i class="ra ra-cog"></i></button>
+        <div class="btn-list">
+          <button id="save-template-btn" class="btn btn-float btn-success">Save</button>
+          <button id="reset-template-btn" class="btn btn-float">Reset</button>
+        </div>
+      </div>
   </div>
 
   <div id="character-template-editor"></div>
@@ -27,21 +32,30 @@
 
     editor.setValue(objectToJSON(template));
 
+    let controlsContainer;
+    let controlBtnGroup;
     $(() => {
+      controlsContainer = $('#editor-controls-container');
+      controlBtnGroup = controlsContainer.find('.float-btn-group');
+      $('.btn-trigger').click(() => {
+        controlBtnGroup.toggleClass('open');
+      });
+
       $('#reset-template-btn').click(() => {
         editor.setValue(objectToJSON(template));
+        controlBtnGroup.removeClass('open');
       });
 
       $('#save-template-btn').click(() => {
         const json = editor.getValue();
-        firestore.collection('rooms').doc(roomKey)
-          .update({
-            characterTemplate: jsonToObject(json)
-          })
+        axios.patch(`/room/${roomKey}/characters/template`, { template: json })
           .then(() => {
-            console.log('Saved');
+            toastr['success']('Template saved');
+            controlBtnGroup.removeClass('open');
           })
           .catch(err => {
+            toastr['danger'](`There was a problem saving!<br/><pre>${err}</pre>`);
+            controlBtnGroup.removeClass('open');
             console.error(err);
           });
       });

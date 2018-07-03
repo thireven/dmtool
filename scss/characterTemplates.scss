@@ -4,11 +4,60 @@
   right: 0;
   bottom: 0;
   left: 0;
+  font-size: 20px;
 }
 
 #editor-controls-container {
-  position: absolute;
+  position: fixed;
   z-index: 1000;
-  right: 20px;
-  top: 70px;
+  right: 100px;
+  bottom: 100px;
+
+  .btn-trigger {
+    position: relative;
+    z-index: 10;
+    font-size: 30px;
+    border-radius: 100%;
+    padding: 12px;
+    line-height: 25px;
+  }
+
+  .float-btn-group{
+
+    .btn-list{
+      z-index: 9;
+      left: 0;
+      overflow: hidden;
+      opacity: 0;
+
+      .btn-float{
+        transition: all .3s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: scale(0);
+      }
+    }
+
+    &.open{
+      .btn-list{
+        opacity: 1;
+
+        .btn-float{
+          transform: scale(1);
+        }
+
+        #reset-template-btn {
+          top: -50px;
+          left: -9px;
+        }
+
+        #save-template-btn {
+          top: 70px;
+          left: -22px;
+          font-size: 30px;
+        }
+      }
+    }
+  }
 }
