@@ -1,6 +1,6 @@
 {
-  "name": "rpg",
-  "version": "0.0.0",
+  "name": "dm-tool",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -17,12 +17,7 @@
     ]
   },
   "engines": {
-    "name": "thi-dm-tool",
-    "description": "Dm Tool",
-    "version": "0.0.1",
-    "engines": {
-      "node": "9.2.0"
-    }
+    "node": "9.2.0"
   },
   "dependencies": {
     "config": "^1.30.0",
