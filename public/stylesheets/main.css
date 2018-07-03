@@ -1646,16 +1646,23 @@
 .ra-acorn:before {
   content: ""; }
 
+html, body {
+  width: 100%;
+  height: 100%; }
+
 body {
   font: 14px 'Metamorphous', cursive;
   background: #cbcbcb;
+  background-image: url(https://orig00.deviantart.net/4fbb/f/2018/127/8/5/rise_of_the_dragon_master_screen_by_charro_art-dcawkhi.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #e8e8e8; }
 
 a {
   color: #00B7FF; }
 
 main {
-  margin-top: 80px; }
+  padding-top: 80px; }
 
 #dashboard-navbar .nav-link {
   font-size: 18px; }
@@ -1664,6 +1671,23 @@ main {
   width: 50%;
   text-align: center;
   margin: 0 auto; }
+
+#homepage-title {
+  color: white;
+  text-align: center;
+  font-size: 60px;
+  text-shadow: -2px -2px 0 black, -2px -1px 0 black, -2px 0px 0 black, -2px 1px 0 black, -2px 2px 0 black, -1px -2px 0 black, -1px -1px 0 black, -1px 0px 0 black, -1px 1px 0 black, -1px 2px 0 black, 0px -2px 0 black, 0px -1px 0 black, 0px 0px 0 black, 0px 1px 0 black, 0px 2px 0 black, 1px -2px 0 black, 1px -1px 0 black, 1px 0px 0 black, 1px 1px 0 black, 1px 2px 0 black, 2px -2px 0 black, 2px -1px 0 black, 2px 0px 0 black, 2px 1px 0 black, 2px 2px 0 black;
+  margin-bottom: 40px; }
+
+#app-meta-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 10px;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.515);
+  color: white;
+  z-index: 10000; }
 
 #character-template-editor {
   position: absolute;

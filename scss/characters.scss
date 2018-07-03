@@ -6,21 +6,6 @@ $character-border-color: #941751;
 $shadow: 10px 10px 24px -9px rgba(0,0,0,0.43);
 $stat-padding: 6px 8px;
 
-/// Stroke font-character
-/// @param  {Integer} $stroke - Stroke width
-/// @param  {Color}   $color  - Stroke color
-/// @return {List}            - text-shadow list
-@function stroke($stroke, $color) {
-  $shadow: ();
-  $from: $stroke*-1;
-  @for $i from $from through $stroke {
-   @for $j from $from through $stroke {
-      $shadow: append($shadow, $i*1px $j*1px 0 $color, comma);
-    }
-  }
-  @return $shadow;
-}
-
 // This is to fix an iOS 11 issue where the cursor is displaced in modal inputs
 body.modal-open {
   position: fixed;

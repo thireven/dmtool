@@ -1,22 +1,8 @@
 <%- include('header', { showNav: false }) %>
+  <h1 id="homepage-title">Dungeon Master Tool</h1>
   <form id="new-room-form" action="/room" method="post">
-      <input name="roomName" type="text" spellcheck="false" class="form-control" placeholder="Name your room" /><br/>
-      <button type="submit" class="btn btn-warning btn-lg">Start New Room</button>
+      <input name="roomName" type="text" spellcheck="false" class="form-control" placeholder="Room Name" /><br/>
+      <button type="submit" class="btn btn-warning btn-lg">Join Room</button>
   </form>
 
 <% include footer %>
-
-
-<!-- <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyA5lIYCq9vTa0U05cPzfViK0NNiFLHh3Rs",
-    authDomain: "dm-tool-76ae3.firebaseapp.com",
-    databaseURL: "https://dm-tool-76ae3.firebaseio.com",
-    projectId: "dm-tool-76ae3",
-    storageBucket: "dm-tool-76ae3.appspot.com",
-    messagingSenderId: "607380450506"
-  };
-  firebase.initializeApp(config);
-</script> -->

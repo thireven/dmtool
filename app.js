@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('config');
 
+const package = require('./package.json');
+
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = 'development';
 }
@@ -28,6 +30,10 @@ app.use((req, res, next) => {
   res.locals.navigation = navigation;
   res.locals.originalUrl = req.originalUrl;
   res.locals.baseLinkUrl = '';
+  res.locals.app = {
+    name: package.name,
+    version: package.version
+  }
   if (req.method === 'GET' && req.originalUrl.indexOf('/room/') > -1) {
     const matches = req.originalUrl.match(new RegExp('\/room\/([^\/]+)'));
     res.locals.baseLinkUrl = `/room/${matches[1]}`;
