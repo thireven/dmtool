@@ -1678,6 +1678,13 @@ main {
   right: 20px;
   top: 70px; }
 
+body.modal-open {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
 #add-character-btn {
   border-radius: 100%;
   position: fixed;
@@ -1690,6 +1697,7 @@ main {
   z-index: 1000; }
 
 .character {
+  overflow: hidden;
   display: inline-block;
   margin: 30px 30px;
   position: relative;
@@ -1705,9 +1713,11 @@ main {
     position: absolute;
     top: 0;
     right: 0;
-    padding: 5px;
+    padding: 10px 5px;
     cursor: pointer;
-    font-size: 12px; }
+    font-size: 12px;
+    background: #006880;
+    z-index: 100; }
   .character .avatar {
     position: absolute;
     top: -48px;
@@ -1792,8 +1802,11 @@ main {
 #characterForm .form-control, #characterForm .input-group-text {
   border-radius: 0; }
 
+#characterForm .char-input-text {
+  width: 153px; }
+
 #characterForm .input-group-text {
-  width: 160px; }
+  width: 140px; }
 
 #characterForm .input-group {
   margin: 0 !important; }

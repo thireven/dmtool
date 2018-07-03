@@ -27,8 +27,14 @@ const CharacterHelper = {
     // Generate name
     const fullName = character.Name;
     const spaceIndex = fullName.indexOf(' ');
-    const firstName = fullName.slice(0, spaceIndex);
-    const lastName = fullName.slice(spaceIndex);
+    let firstName = fullName;
+    let lastName = '';
+
+    if (spaceIndex > -1) {
+        firstName = fullName.slice(0, spaceIndex);
+        lastName = fullName.slice(spaceIndex);
+    }
+
     output += characterTemplate.name
         .replace('%%CHARACTER_ID%%', character.id)
         .replace('%%LEVEL%%', (character.Level) ? character.Level : 1)

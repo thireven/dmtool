@@ -21,6 +21,15 @@ $stat-padding: 6px 8px;
   @return $shadow;
 }
 
+// This is to fix an iOS 11 issue where the cursor is displaced in modal inputs
+body.modal-open {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 #add-character-btn {
   border-radius: 100%;
   position: fixed;
@@ -34,6 +43,7 @@ $stat-padding: 6px 8px;
 }
 
 .character {
+  overflow: hidden;
   display: inline-block;
   margin: 30px 30px;
   position: relative;
@@ -50,9 +60,11 @@ $stat-padding: 6px 8px;
     position: absolute;
     top: 0;
     right: 0;
-    padding: 5px;
+    padding: 10px 5px;
     cursor: pointer;
     font-size: 12px;
+    background: #006880;
+    z-index: 100;
   }
 
   .avatar {
@@ -177,8 +189,12 @@ $stat-padding: 6px 8px;
     border-radius: 0;
   }
 
+  .char-input-text {
+    width: 153px;
+  }
+
   .input-group-text {
-    width: 160px;
+    width: 140px;
   }
 
   .input-group {
