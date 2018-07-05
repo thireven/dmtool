@@ -69,7 +69,8 @@
             $('#characterFormModal').on('submit', '#characterForm', (e) => {
                 e.preventDefault();
                 const currentTarget = $(e.currentTarget);
-                const data = currentTarget.serialize();
+                const data = currentTarget.serializeJSON();
+                console.log(data);
                 const characterId = currentTarget.find('#character-id-field').val();
 
                 const ajaxCall = () => {
@@ -83,8 +84,7 @@
                     })
                     .catch(err => {
                         console.error(err);
-                    })
-
+                    });
             });
 
             firestore.collection('rooms').doc(roomKey).collection('characters')

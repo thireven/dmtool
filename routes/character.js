@@ -1,6 +1,8 @@
 const express = require('express');
 const config = require('config');
+const multer = require('multer');
 
+const upload = multer();
 const firestore = require('../firestore');
 const router = express.Router();
 const characterConfig = config.get('characters');
@@ -27,13 +29,14 @@ router.get('/characters', (req, res) => {
   res.render('dm/characters', { roomKey });
 });
 
-router.patch('/character/:characterId', (req, res, next) => {
+router.patch('/character/:characterId', upload.array(), (req, res, next) => {
   const roomKey = req.roomKey;
   const characterId = req.params.characterId;
-  const body = req.body;
-  delete req.body.characterId;
+  const body = Object.assign({}, req.body);
+  delete body.characterId;
+
   firestore.collection('rooms').doc(roomKey).collection('characters').doc(characterId)
-    .update(req.body)
+    .update(body)
     .then(() => {
       res.status(200).end();
     })
