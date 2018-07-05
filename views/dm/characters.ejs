@@ -20,6 +20,15 @@
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="pictureModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <video autoplay="true" playsinline id="videoElement"></video>
+                <button id="toggle-video-btn">Toggle</button>
+            </div>
+        </div>
+    </div>
+
     <script src="/javascripts/CharacterHelper.js"></script>
     <script>
         function addCharacter(character) {
@@ -48,22 +57,24 @@
         // Jquery init
         let container;
         let characters = [];
-        let modal;
+        let modalCharacterForm;
+        let modalCharacterFooterButtons;
         let currentCharacterFormUrl = getCharacterFormUrl(roomKey);
         const hourglassIcon = `<i class="ra ra-hourglass" id="form-loading-icon"></i>`;
         $(() => {
-            modal = $('#characterFormModal')
+            modalCharacterForm = $('#characterFormModal');
+            modalCharacterFooterButtons = modalCharacterForm.find('.modal-footer button');
             container = $('#characters-container');
 
             container.on('click', '.edit-btn', (e) => {
                 const characterId = $(e.currentTarget).attr('data-fs-id');
                 currentCharacterFormUrl = getCharacterFormUrl(roomKey, characterId);
-                modal.modal('show');
+                modalCharacterForm.modal('show');
             })
 
             $('#add-character-btn').on('click', () => {
                 currentCharacterFormUrl = getCharacterFormUrl(roomKey);
-                modal.modal('show');
+                modalCharacterForm.modal('show');
             })
 
             $('#characterFormModal').on('submit', '#characterForm', (e) => {
@@ -80,7 +91,7 @@
 
                 ajaxCall()
                     .then(() => {
-                        modal.modal('hide');
+                        modalCharacterForm.modal('hide');
                     })
                     .catch(err => {
                         console.error(err);
@@ -96,17 +107,20 @@
                     renderCharacters();
                 });
 
-            modal
+                modalCharacterForm
                 .on('show.bs.modal', (e) => {
+                    modalCharacterFooterButtons.prop('disabled', true);
                     axios.get(currentCharacterFormUrl)
                         .then((res) => {
                             $(e.currentTarget).find('.form-container').html(res.data);
+                            modalCharacterFooterButtons.prop('disabled', false);
                         })
                         .catch((err) => {
                             console.error(err);
                         });
                 })
                 .on('hidden.bs.modal', (e) => {
+                    modalCharacterFooterButtons.prop('disabled', true);
                     $(e.currentTarget).find('.form-container').html(hourglassIcon);
                 })
         })

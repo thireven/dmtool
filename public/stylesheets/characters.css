@@ -172,6 +172,10 @@ body.modal-open {
 #character-detail-container .edit-btn {
   display: none; }
 
+#videoElement {
+  width: 400px;
+  height: 400px; }
+
 .form-container {
   text-align: center; }
 

@@ -12,6 +12,9 @@
     %>
     <div class="form-row">
       <% switch(data.type) {
+          case 'picture': %>
+            <%- include('../character/form/picture', { field, data, defaultValue }); %>
+            <% break;
           case 'string': %>
             <%- include('../character/form/string', { field, data, defaultValue }); %>
             <% break;
