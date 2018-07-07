@@ -12,8 +12,9 @@
     <script src="/javascripts/libs/jquery.serializejson.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.1.0/firebase-storage.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
       const roomKey = '<%= typeof roomKey !== "undefined" ? roomKey : "" %>';
@@ -22,7 +23,8 @@
       const firebaseConfig = {
         apiKey: "AIzaSyA5lIYCq9vTa0U05cPzfViK0NNiFLHh3Rs",
         authDomain: "dm-tool-76ae3.firebaseapp.com",
-        projectId: "dm-tool-76ae3"
+        projectId: "dm-tool-76ae3",
+        storageBucket: 'gs://dm-tool-76ae3.appspot.com'
       };
 
       firebase.initializeApp(firebaseConfig);

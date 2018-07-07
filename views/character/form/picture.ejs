@@ -5,12 +5,24 @@
                 <div class="input-group-text"><%- field %></div>
             </label>
         </div>
+        <input type="hidden" name="<%= (typeof fieldName !== 'undefined') ? fieldName : field %>" id="new-<%= field %>" value="<%= defaultValue %>" />
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pictureModal">
-          Launch demo modal
+          Edit Picture
         </button>
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.0/cropper.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.4.0/cropper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.js"></script>
+<script>
+    if(typeof pictureFieldId === 'undefined') {
+        let pictureFieldId = null;
+    }
+    pictureFieldId = 'new-<%= field %>';
+
+    if(typeof pictureBlob === 'undefined') {
+        let pictureBlob = null;
+    }
+    pictureBlob = null;
+</script>
 <script src="/javascripts/CharacterFormPicture.js"></script>

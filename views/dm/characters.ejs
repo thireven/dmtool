@@ -20,17 +20,23 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="pictureModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <video autoplay="true" playsinline id="videoElement"></video>
-                <button id="toggle-video-btn">Toggle</button>
-            </div>
-        </div>
-    </div>
+    <%- include('./characterPictureModal.ejs') %>
 
     <script src="/javascripts/CharacterHelper.js"></script>
     <script>
+        let container;
+        let characters = [];
+        let modalCharacterForm;
+        let modalCharacterFooterButtons;
+        let currentCharacterFormUrl = getCharacterFormUrl(roomKey);
+        const hourglassIcon = `<i class="ra ra-hourglass" id="form-loading-icon"></i>`;
+
+        function uuidv4() {
+            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+            );
+        }
+
         function addCharacter(character) {
             characters.push(character);
             firestore
@@ -54,13 +60,42 @@
             return `/room/${roomKey}/characters/template/form`;
         }
 
-        // Jquery init
-        let container;
-        let characters = [];
-        let modalCharacterForm;
-        let modalCharacterFooterButtons;
-        let currentCharacterFormUrl = getCharacterFormUrl(roomKey);
-        const hourglassIcon = `<i class="ra ra-hourglass" id="form-loading-icon"></i>`;
+        function uploadPicture() {
+            if (!pictureBlob) return Promise.resolve();
+
+            return new Promise((resolve, reject) => {
+                // Get a reference to the storage service, which is used to create references in your storage bucket
+                const storage = firebase.storage().ref();
+                const imagesRef = storage.child(`profileImages/${uuidv4()}.jpg`);
+                const uploadTask = imagesRef.put(pictureBlob);
+                uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+                    (snapshot) => {
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                console.log('Upload is paused');
+                                break;
+                            case firebase.storage.TaskState.RUNNING: // or 'running'
+                                console.log('Upload is running');
+                                break;
+                        }
+                    },
+                    (error) => {
+                        reject(err);
+                    },
+                    () => {
+                        // Upload completed successfully, now we can get the download URL
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            modalCharacterForm.find(`#characterForm #${pictureFieldId}`).val(downloadURL);
+                            resolve();
+                        });
+                    }
+                );
+            });
+        }
+
         $(() => {
             modalCharacterForm = $('#characterFormModal');
             modalCharacterFooterButtons = modalCharacterForm.find('.modal-footer button');
@@ -79,22 +114,24 @@
 
             $('#characterFormModal').on('submit', '#characterForm', (e) => {
                 e.preventDefault();
-                const currentTarget = $(e.currentTarget);
-                const data = currentTarget.serializeJSON();
-                console.log(data);
-                const characterId = currentTarget.find('#character-id-field').val();
-
-                const ajaxCall = () => {
-                    return (characterId) ? axios.patch(`/room/${roomKey}/character/${characterId}`, data)
-                            : axios.post(`/room/${roomKey}/character`, data);
-                }
-
-                ajaxCall()
+                uploadPicture()
                     .then(() => {
-                        modalCharacterForm.modal('hide');
-                    })
-                    .catch(err => {
-                        console.error(err);
+                        const currentTarget = $(e.currentTarget);
+                        const data = currentTarget.serializeJSON();
+                        const characterId = currentTarget.find('#character-id-field').val();
+
+                        const ajaxCall = () => {
+                            return (characterId) ? axios.patch(`/room/${roomKey}/character/${characterId}`, data)
+                                    : axios.post(`/room/${roomKey}/character`, data);
+                        }
+
+                        ajaxCall()
+                            .then(() => {
+                                modalCharacterForm.modal('hide');
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            });
                     });
             });
 

@@ -41,6 +41,10 @@ const CharacterHelper = {
         .replace('%%FIRST_NAME%%', firstName)
         .replace('%%LAST_NAME%%', lastName);
 
+    if (typeof character.Picture !== 'undefined' && character.Picture) {
+        output += characterTemplate.avatar.replace('%%IMAGE%%', character.Picture);
+    }
+
     // Generate race
     output += characterTemplate.race
         .replace('%%RACE%%', character.Race);
