@@ -6,6 +6,15 @@ $character-border-color: #941751;
 $shadow: 10px 10px 24px -9px rgba(0,0,0,0.43);
 $stat-padding: 6px 8px;
 
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
 // This is to fix an iOS 11 issue where the cursor is displaced in modal inputs
 body.modal-open {
   position: fixed;
@@ -28,7 +37,6 @@ body.modal-open {
 }
 
 .character {
-  overflow: hidden;
   display: inline-block;
   margin: 30px 30px;
   position: relative;
@@ -101,6 +109,7 @@ body.modal-open {
     text-shadow: stroke(2, black);
     text-transform: uppercase;
     border: 0;
+    overflow: hidden;
     position: relative;
 
     .char-bar-stat {
@@ -215,6 +224,15 @@ body.modal-open {
     left: 0;
     right: 0;
 
+    .avatar {
+      top: auto;
+      bottom: -220px;
+      left: 0;
+      z-index: 10;
+      width: 200px;
+      height: auto;
+    }
+
     .char-name {
       text-align: center;
       padding: 15px;
@@ -250,6 +268,57 @@ body.modal-open {
   }
 }
 
+#profile-picture-canvas {
+  display: none;
+}
+
+#profile-picture-container {
+  margin: 0 auto;
+  height: 475px;
+  padding-bottom: 50px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+
+  #profile-picture {
+
+  }
+}
+
+#nav-picture-camera {
+  position: relative;
+
+  .btn {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    z-index: 10;
+
+    &:nth-child(2) {
+      right: 80px;
+    }
+  }
+  #video-container {
+    position: relative;
+    border: 2px solid grey;
+    width: 100%;
+    height: 100%;
+
+    #video-element {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#picture-btn-container {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+  font-size: 30px;
+}
+
 .form-container {
   text-align: center;
 }
@@ -261,11 +330,22 @@ body.modal-open {
   display: inline-block;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg)
-  }
-  100% {
-    transform: rotate(360deg)
+#pictureModal {
+
+  .modal-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    margin: 0;
+
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      display: block;
+    }
   }
 }

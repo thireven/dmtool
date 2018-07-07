@@ -1,3 +1,9 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
 body.modal-open {
   position: fixed;
   top: 0;
@@ -17,7 +23,6 @@ body.modal-open {
   z-index: 1000; }
 
 .character {
-  overflow: hidden;
   display: inline-block;
   margin: 30px 30px;
   position: relative;
@@ -75,6 +80,7 @@ body.modal-open {
     text-shadow: stroke(2, black);
     text-transform: uppercase;
     border: 0;
+    overflow: hidden;
     position: relative; }
     .character .char-dynamic-bar .char-bar-stat {
       position: relative;
@@ -150,6 +156,13 @@ body.modal-open {
   top: 0;
   left: 0;
   right: 0; }
+  #character-detail-container .character .avatar {
+    top: auto;
+    bottom: -220px;
+    left: 0;
+    z-index: 10;
+    width: 200px;
+    height: auto; }
   #character-detail-container .character .char-name {
     text-align: center;
     padding: 15px;
@@ -172,6 +185,42 @@ body.modal-open {
 #character-detail-container .edit-btn {
   display: none; }
 
+#profile-picture-canvas {
+  display: none; }
+
+#profile-picture-container {
+  margin: 0 auto;
+  height: 475px;
+  padding-bottom: 50px;
+  width: 100%;
+  text-align: center;
+  overflow: hidden; }
+
+#nav-picture-camera {
+  position: relative; }
+  #nav-picture-camera .btn {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    z-index: 10; }
+    #nav-picture-camera .btn:nth-child(2) {
+      right: 80px; }
+  #nav-picture-camera #video-container {
+    position: relative;
+    border: 2px solid grey;
+    width: 100%;
+    height: 100%; }
+    #nav-picture-camera #video-container #video-element {
+      width: 100%;
+      height: 100%; }
+
+#picture-btn-container {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+  font-size: 30px; }
+
 .form-container {
   text-align: center; }
 
@@ -181,10 +230,18 @@ body.modal-open {
   font-size: 50px;
   display: inline-block; }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
+#pictureModal .modal-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: none;
+  margin: 0; }
+  #pictureModal .modal-dialog .modal-content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: block; }
 
 /*# sourceMappingURL=characters.css.map */
