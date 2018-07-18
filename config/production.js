@@ -14,6 +14,7 @@ module.exports = {
   characters: {
     template: [
       { name: 'Name', type: 'string', default: 'John Doe' },
+      { name: 'Picture', type: 'picture' },
       { name: 'Level', type: 'number', default: 1 },
       { name: 'Race', type: 'options', values: ['Elf', 'Human', 'Dwarf', 'Dragonite', 'Pewpew'] },
       { name: 'HP', type: 'number', default: 20 },
