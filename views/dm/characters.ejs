@@ -61,7 +61,7 @@
         }
 
         function uploadPicture() {
-            if (!pictureBlob) return Promise.resolve();
+            if (typeof pictureBlob === 'undefined' || !pictureBlob) return Promise.resolve();
 
             return new Promise((resolve, reject) => {
                 // Get a reference to the storage service, which is used to create references in your storage bucket
